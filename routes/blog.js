@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  checkSlugAvailable,
   createBlog,
   deleteBlogs,
   getBlogs,
@@ -15,6 +16,7 @@ router.post("/createBlog", createBlog);
 
 // get blogs //
 router.get("/getBlogs", getBlogs);
+router.get("/checkSlugAvailable", checkSlugAvailable);
 
 // update packages//
 router.post("/updateBlog", updateBlog);

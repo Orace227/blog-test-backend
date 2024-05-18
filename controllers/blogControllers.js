@@ -35,6 +35,27 @@ export const getBlogs = async (req, res) => {
     res.status(500).json({ error, status: "internalServerError" });
   }
 };
+
+export const checkSlugAvailable = async (req, res) => {
+  try {
+    const { slug } = await req.query;
+    let query = {};
+    if (slug) query.slug = slug;
+
+    const getBlogs = await blog.find(query);
+    if (getBlogs.length > 0) {
+      return res
+        .status(400)
+        .json({ message: "slug exist", status: "slugExist" });
+    }
+
+    res.status(200).json({ message: "slug does not exist", status: "success" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, status: "internalServerError" });
+  }
+};
+
 export const deleteBlogs = async (req, res) => {
   try {
     const { blogIdArr } = req.body; // Destructuring blogIdArr directly from req.query
